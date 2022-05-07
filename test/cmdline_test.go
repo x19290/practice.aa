@@ -1,8 +1,9 @@
-package test
+package notmain
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 	x "github.com/x19290/practice.aa/shline2dos"
 )
 
