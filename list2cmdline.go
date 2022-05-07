@@ -8,7 +8,7 @@ import (
 func List2Cmdline(words []string) string {
 	b := new(bytes.Buffer)
 	for _, word := range words {
-		b.WriteString(word)
+		b.WriteString(Quote(word))
 		b.WriteByte(' ')
 	}
 	if 1 <= len(words) {
