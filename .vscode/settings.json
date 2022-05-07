@@ -1,4 +1,8 @@
 {
+    "python.testing.unittestEnabled": true,
+    "python.testing.unittestArgs": [
+        "-p", "*_test.py"
+    ],
     "cSpell.words": [
         "anystrs",
         "shlex",

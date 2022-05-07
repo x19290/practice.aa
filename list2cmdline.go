@@ -48,11 +48,11 @@ func Quote(any string) (dosword string) {
 			return false
 		}
 	}()
-	b := new(bytes.Buffer) // return b.String() at last.
-	// n'bs', repeat'Bs': bs=backslash
+	b := new(bytes.Buffer) // dosword = b.String() at last.
+	// nbs, repeatBs: bs=backslash
 	nbs := 0
 	repeatBs := func() {
-		for i := 0; i < nbs; i++ {
+		for i := 0; i < nbs; i++ { // nbs varies
 			b.WriteByte('\\')
 		}
 	}
@@ -71,9 +71,9 @@ func Quote(any string) (dosword string) {
 			nbs = 0
 		}
 	}
-	repeatBs()
+	repeatBs() // \\+ $ (if any)
 	if quote {
-		repeatBs()
+		repeatBs() // \\+ before closing " must be doubled
 		b.WriteByte('"')
 	}
 	dosword = b.String()

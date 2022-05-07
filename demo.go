@@ -18,6 +18,7 @@ func Demo() {
 
 func DemoImpl(w io.Writer, feed string) {
 	for _, y := range strings.Split(feed, "\n") {
+		fmt.Fprintf(w, "<%v>\n", y)
 		fmt.Fprintln(w, Quote(y))
 	}
 }
