@@ -1,4 +1,4 @@
-package shline2dos
+package testdata
 
 import (
 	"embed"
@@ -13,8 +13,8 @@ type Test struct {
 	Expected string
 }
 
-func TestData(ch chan *Test) {
-	data, err := emb.ReadFile("testdata.txt")
+func Stream(ch chan *Test) {
+	data, err := emb.ReadFile("data.txt")
 	if err != nil {
 		panic(err)
 	}

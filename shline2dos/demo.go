@@ -5,11 +5,12 @@ import (
 	"io"
 	"os"
 	"strings"
+	"github.com/x19290/practice.aa/testdata"
 )
 
 func Demo() {
-	ch := make(chan *Test)
-	go TestData(ch)
+	ch := make(chan *testdata.Test)
+	go testdata.Stream(ch)
 	for test := range ch {
 		DemoImpl(os.Stdout, test.Feed)
 	}

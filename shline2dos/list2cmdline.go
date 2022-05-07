@@ -3,7 +3,6 @@ package shline2dos
 import (
 	"bytes"
 	"strings"
-
 	"github.com/google/shlex"
 )
 
