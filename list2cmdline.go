@@ -5,6 +5,18 @@ import (
 	"strings"
 )
 
+func List2Cmdline(words []string) string {
+	b := new(bytes.Buffer)
+	for _, word := range words {
+		b.WriteString(word)
+		b.WriteByte(' ')
+	}
+	if 1 <= len(words) {
+		b.Truncate(b.Len() - 1)
+	}
+	return b.String()
+}
+
 func Quote(word string) string {
 	j := make(chan rune)
 	var needquote bool
