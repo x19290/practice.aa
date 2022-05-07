@@ -1,4 +1,4 @@
-package anyid
+package notmain
 
 import (
 	"bytes"
