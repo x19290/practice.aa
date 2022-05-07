@@ -3,68 +3,79 @@ package main
 import (
 	"bytes"
 	"strings"
+	"github.com/google/shlex"
 )
 
-func List2Cmdline(words []string) string {
+func ShlineToDos(shline string) (dosline string) {
+	dosline, err := ShlineToDosLine(shline)
+	if err != nil {
+		panic(err)
+	}
+	return
+}
+
+func ShlineToDosLine(shline string) (dosline string, err error) {
+	list, err := shlex.Split(shline)
+	if err == nil {
+		dosline = List2Cmdline(list)
+	} else {
+		dosline = ""
+	}
+	return
+}
+
+func List2Cmdline(anystrs []string) string {
 	b := new(bytes.Buffer)
-	for _, word := range words {
+	for _, word := range anystrs {
 		b.WriteString(Quote(word))
 		b.WriteByte(' ')
 	}
-	if 1 <= len(words) {
+	if 1 <= len(anystrs) {
 		b.Truncate(b.Len() - 1)
 	}
 	return b.String()
 }
 
-func Quote(word string) string {
-	j := make(chan rune)
-	var needquote bool
-	switch {
-	case len(word) == 0:
-		needquote = true
-	case 0 <= strings.Index(word, " "), 0 <= strings.Index(word, "\t"):
-		needquote = true
-	default:
-		needquote = false
-	}
-	go func() {
-		nbs := 0
-		if needquote {
-			j <- '"'
+func Quote(any string) (dosword string) {
+	// This algorithm is stolen from python3...list2cmdline().
+	quote := func() bool {
+		switch {
+		case len(any) == 0:
+			return true
+		case 0 <= strings.Index(any, " "), 0 <= strings.Index(any, "\t"):
+			return true
+		default:
+			return false
 		}
-		for _, y := range word {
-			if y == '\'' {
-				nbs++
-			} else {
-				if y == '"' {
-					nbs = nbs*2 + 1
-				}
-				for i := 0; i < nbs; i++ {
-					j <- '\\'
-				}
-				nbs = 0
-				j <- y
-			}
-		}
-		for i := 0; i < nbs; i++ {
-			j <- '\\'
-		}
-		if needquote {
-			for i := 0; i < nbs; i++ {
-				j <- '\\'
-			}
-			j <- '"'
-		}
-		close(j)
 	}()
-	b := new(bytes.Buffer)
-	for {
-		c, ok := <-j
-		if !ok {
-			break
+	b := new(bytes.Buffer) // return b.String() at last.
+	// nbs, repeatBs: bs=backslash
+	nbs := 0
+	repeatBs := func() {
+		for i := 0; i < nbs; i++ {
+			b.WriteByte('\\')
 		}
-		b.WriteRune(c)
 	}
-	return b.String()
+	if quote {
+		b.WriteByte('"')
+	}
+	for _, y := range any {
+		if y == '\\' {
+			nbs++
+		} else {
+			if y == '"' {
+				nbs = nbs*2 + 1
+			}
+			repeatBs()
+			b.WriteRune(y)
+			nbs = 0
+		}
+	}
+	repeatBs()
+	if quote {
+		repeatBs()
+		b.WriteByte('"')
+	}
+	dosword = b.String()
+	return
 }

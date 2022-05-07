@@ -10,4 +10,5 @@ func Test1(t *testing.T) {
 	assert.Equal(t, "α", List2Cmdline([]string{"α"}))
 	assert.Equal(t, "α β", List2Cmdline([]string{"α", "β"}))
 	assert.Equal(t, `"" " "`, List2Cmdline([]string{"", " "}))
+	assert.Equal(t, `a'`, ShlineToDos(`"a"\'`))
 }
