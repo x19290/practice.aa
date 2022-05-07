@@ -13,7 +13,7 @@ type Test struct {
 	expected string
 }
 
-func testdata(ch chan *Test) {
+func TestData(ch chan *Test) {
 	data, err := emb.ReadFile("testdata.txt")
 	if err != nil {
 		panic(err)

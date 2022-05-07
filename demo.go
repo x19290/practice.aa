@@ -7,15 +7,15 @@ import (
 	"strings"
 )
 
-func main() {
+func Demo() {
 	ch := make(chan *Test)
-	go testdata(ch)
+	go TestData(ch)
 	for test := range ch  {
-		_main(os.Stdout, test.feed)
+		DemoImpl(os.Stdout, test.feed)
 	}
 }
 
-func _main(w io.Writer, feed string) {
+func DemoImpl(w io.Writer, feed string) {
 	for _, y := range strings.Split(feed, "\n") {
 		fmt.Fprintln(w, Quote(y))
 	}
