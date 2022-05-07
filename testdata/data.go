@@ -13,7 +13,13 @@ type Test struct {
 	Expected string
 }
 
-func Stream(ch chan *Test) {
+func Stream() (ch chan *Test) {
+	ch = make(chan *Test)
+	go stream(ch)
+	return
+}
+
+func stream(ch chan *Test) {
 	data, err := emb.ReadFile("data.txt")
 	if err != nil {
 		panic(err)

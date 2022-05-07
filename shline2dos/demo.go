@@ -9,9 +9,9 @@ import (
 )
 
 func Demo() {
-	ch := make(chan *testdata.Test)
-	go testdata.Stream(ch)
-	for test := range ch {
+	// ch := make(chan *testdata.Test)
+	// go testdata.Stream(ch)
+	for test := range testdata.Stream() {
 		DemoImpl(os.Stdout, test.Feed)
 	}
 }

@@ -9,9 +9,7 @@ import (
 )
 
 func Test0(t *testing.T) {
-	ch := make(chan *testdata.Test)
-	go testdata.Stream(ch)
-	for test := range ch {
+	for test := range testdata.Stream() {
 		expected := new(bytes.Buffer)
 		actual := new(bytes.Buffer)
 		expected.WriteString(test.Expected)
