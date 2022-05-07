@@ -30,16 +30,16 @@ func testdata(ch chan *Test) {
 }
 
 func main() {
-	_main(os.Stdout)
-}
-
-func _main(w io.Writer) {
 	ch := make(chan *Test)
 	go testdata(ch)
-	for test := range(ch) {
-		for _, y := range strings.Split(test.feed, "\n") {
-			fmt.Fprintln(w, quotedog(y))
-		}
+	for test := range ch  {
+		_main(os.Stdout, test)
+	}
+}
+
+func _main(w io.Writer, test *Test) {
+	for _, y := range strings.Split(test.feed, "\n") {
+		fmt.Fprintln(w, quotedog(y))
 	}
 }
 
