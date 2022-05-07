@@ -12,15 +12,19 @@ import (
 //go:embed *.txt
 var emb embed.FS
 
-func testdata(ch chan string) {
+type Test struct {
+	feed string
+	expected string
+}
+
+func testdata(ch chan *Test) {
 	data, err := emb.ReadFile("testdata.txt")
 	if err != nil {
 		panic(err)
 	}
 	split := strings.Split(string(data), "\n----\n")
 	for i := 0; i < len(split)-3; i += 3 {
-		ch <- split[i+1]
-		ch <- split[i+2]
+		ch <- &Test{split[i+1], split[i+2]}
 	}
 	close(ch)
 }
@@ -30,18 +34,10 @@ func main() {
 }
 
 func _main(w io.Writer) {
-	ch := make(chan string)
+	ch := make(chan *Test)
 	go testdata(ch)
-	for {
-		feed, ok := <-ch
-		if !ok {
-			break
-		}
-		_, ok = <-ch
-		if !ok {
-			panic("?")
-		}
-		for _, y := range strings.Split(feed, "\n") {
+	for test := range(ch) {
+		for _, y := range strings.Split(test.feed, "\n") {
 			fmt.Fprintln(w, quotedog(y))
 		}
 	}
