@@ -1,4 +1,4 @@
-module dog
+module msdog
 
 go 1.18
 

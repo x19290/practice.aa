@@ -18,7 +18,10 @@ func testdata(ch chan string) {
     datafile := filepath.Join(dir, "testdata.txt")
     data, err := os.ReadFile(datafile)
     if err != nil {
-        panic(err)
+        data, err = os.ReadFile("testdata.txt")
+        if err != nil {
+            panic(err)
+        }
     }
     split := strings.Split(string(data), "\n----\n")
     for i := 0; i < len(split) - 3; i += 3 {
