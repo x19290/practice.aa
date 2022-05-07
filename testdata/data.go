@@ -15,19 +15,17 @@ type Test struct {
 
 func Stream() (ch chan *Test) {
 	ch = make(chan *Test)
-	go stream(ch)
+	go func() {
+		bits, err := emb.ReadFile("data.txt")
+		if err != nil {
+			panic(err)
+		}
+		data := strings.TrimRight(string(bits), "\n")
+		split := strings.Split(data, "\n----\n")
+		for i := 0; i <= len(split)-3; i += 3 {
+			ch <- &Test{split[i+1], split[i+2]}
+		}
+		close(ch)
+	}()
 	return
-}
-
-func stream(ch chan *Test) {
-	bits, err := emb.ReadFile("data.txt")
-	if err != nil {
-		panic(err)
-	}
-	data := strings.TrimRight(string(bits), "\n")
-	split := strings.Split(data, "\n----\n")
-	for i := 0; i <= len(split)-3; i += 3 {
-		ch <- &Test{split[i+1], split[i+2]}
-	}
-	close(ch)
 }
