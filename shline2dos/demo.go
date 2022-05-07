@@ -1,4 +1,4 @@
-package main
+package anyid
 
 import (
 	"fmt"
@@ -10,8 +10,8 @@ import (
 func Demo() {
 	ch := make(chan *Test)
 	go TestData(ch)
-	for test := range ch  {
-		DemoImpl(os.Stdout, test.feed)
+	for test := range ch {
+		DemoImpl(os.Stdout, test.Feed)
 	}
 }
 

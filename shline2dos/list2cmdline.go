@@ -1,8 +1,9 @@
-package main
+package anyid
 
 import (
 	"bytes"
 	"strings"
+
 	"github.com/google/shlex"
 )
 

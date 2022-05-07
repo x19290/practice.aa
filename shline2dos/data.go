@@ -1,4 +1,4 @@
-package main
+package anyid
 
 import (
 	"embed"
@@ -9,8 +9,8 @@ import (
 var emb embed.FS
 
 type Test struct {
-	feed string
-	expected string
+	Feed     string
+	Expected string
 }
 
 func TestData(ch chan *Test) {
