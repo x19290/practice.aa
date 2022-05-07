@@ -2,11 +2,10 @@ package test
 
 import (
 	"bytes"
-	"testing"
-
 	"github.com/stretchr/testify/assert"
-	"github.com/x19290/practice.aa/dos"
+	dos "github.com/x19290/practice.aa"
 	"github.com/x19290/practice.aa/testdata"
+	"testing"
 )
 
 func Test0(t *testing.T) {
