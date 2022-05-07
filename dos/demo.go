@@ -1,10 +1,11 @@
-package shline2dos
+package dos
 
 import (
 	"fmt"
 	"io"
 	"os"
 	"strings"
+
 	"github.com/x19290/practice.aa/testdata"
 )
 

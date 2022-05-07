@@ -1,8 +1,9 @@
-package shline2dos
+package dos
 
 import (
 	"bytes"
 	"strings"
+
 	"github.com/google/shlex"
 )
 
@@ -49,7 +50,7 @@ func Quote(any string) (dosword string) {
 		}
 	}()
 	b := new(bytes.Buffer) // return b.String() at last.
-	// nbs, repeatBs: bs=backslash
+	// n'bs', repeat'Bs': bs=backslash
 	nbs := 0
 	repeatBs := func() {
 		for i := 0; i < nbs; i++ {
