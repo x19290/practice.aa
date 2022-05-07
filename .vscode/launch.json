@@ -5,26 +5,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "testdata.py",
-            "type": "python",
-            "request": "launch",
-            "program": "testdata.py",
-            "console": "integratedTerminal",
-            "justMyCode": true
-        },
-        {
-            "name": "run",
+            "name": "demo",
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "."
-        },
-        {
-            "name": "test",
-            "type": "go",
-            "request": "launch",
-            "mode": "test",
-            "program": "."
+            "program": "demo"
         },
     ]
 }

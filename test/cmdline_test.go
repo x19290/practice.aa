@@ -1,4 +1,4 @@
-package notmain
+package test
 
 import (
 	"testing"

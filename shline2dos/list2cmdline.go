@@ -1,4 +1,4 @@
-package notmain
+package shline2dos
 
 import (
 	"bytes"
