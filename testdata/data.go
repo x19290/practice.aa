@@ -20,12 +20,13 @@ func Stream() (ch chan *Test) {
 }
 
 func stream(ch chan *Test) {
-	data, err := emb.ReadFile("data.txt")
+	bits, err := emb.ReadFile("data.txt")
 	if err != nil {
 		panic(err)
 	}
-	split := strings.Split(string(data), "\n----\n")
-	for i := 0; i < len(split)-3; i += 3 {
+	data := strings.TrimRight(string(bits), "\n")
+	split := strings.Split(data, "\n----\n")
+	for i := 0; i <= len(split)-3; i += 3 {
 		ch <- &Test{split[i+1], split[i+2]}
 	}
 	close(ch)

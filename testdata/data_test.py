@@ -4,7 +4,7 @@ from subprocess import list2cmdline
 
 def main():
     data = Path(__file__).with_name(r"data.txt").read_text()
-    data = data.split("\n----\n")[:-1]
+    data = data.rstrip().split("\n----\n")
     g = data.__iter__()
     for y in g:
         feed, expected = g.__next__(), g.__next__()
