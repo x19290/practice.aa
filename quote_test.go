@@ -13,7 +13,7 @@ func Test0(t *testing.T) {
 		expected := new(bytes.Buffer)
 		actual := new(bytes.Buffer)
 		expected.WriteString(test.expected)
-		expected.WriteRune('\n')
+		expected.WriteByte('\n')
 		_main(actual, test.feed)
 		assert.Equal(t, expected, actual)
 	}
