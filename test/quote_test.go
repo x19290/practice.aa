@@ -10,10 +10,11 @@ import (
 
 func Test0(t *testing.T) {
 	for test := range testdata.Stream() {
-		expected := new(bytes.Buffer)
-		actual := new(bytes.Buffer)
-		dos.DemoCompare(expected, test)
-		dos.DemoImpl(actual, test)
+		eb := new(bytes.Buffer)
+		ab := new(bytes.Buffer)
+		dos.DemoCompare(eb, test)
+		dos.DemoImpl(ab, test)
+		expected, actual := eb.String(), ab.String()
 		assert.Equal(t, expected, actual)
 	}
 }

@@ -26,17 +26,20 @@ func DemoImpl(w io.Writer, test string) {
 
 var py = `
 from subprocess import list2cmdline
-from sys import argv
-print(list2cmdline([argv[1]]), end=r"")
+from sys import argv, stdout
+b = stdout.buffer
+for y in argv[1:]:
+	b.write(b"<%s>\n" % y.encode())
+	b.write(b"%s\n" % list2cmdline([y]).encode())
 `[1:]
 
 func DemoCompare(w io.Writer, test string) {
-	for _, feed := range strings.Split(test, "\n") {
-		quoted, err := exec.Command("python3", "-c", py, feed).Output()
-		if err != nil {
-			panic(err)
-		}
-		fmt.Fprintf(w, "<%v>\n", feed)
-		fmt.Fprintf(w, "%s\n", quoted)
+	feeds := strings.Split(test, "\n")
+	feeds = append([]string{"-c", py}, feeds...)
+	x := exec.Command("python3", feeds...)
+	x.Stdout = w
+	err := x.Run()
+	if err != nil {
+		panic(err)
 	}
 }

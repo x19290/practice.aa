@@ -1,20 +1,7 @@
-from pathlib import Path
+#!/usr/bin/env python3
 from subprocess import list2cmdline
-
-
-def main():
-    data = Path(__file__).with_name(r"data.txt").read_text()
-    data = data.rstrip().split("\n----\n")
-    g = data.__iter__()
-    for y in g:
-        feed, expected = g.__next__(), g.__next__()
-        feed = feed.splitlines(keepends=False)
-        expected = expected.splitlines(keepends=False)
-        assert feed.__len__() == expected.__len__()
-        for f, e in zip(feed, expected):
-            y = list2cmdline((f,))
-            assert y == e
-
-
-if __name__ == r"__main__":
-    main()
+from sys import argv, stdout
+b = stdout.buffer
+for y in argv[1:]:
+	b.write(br"<%s>\n" % y)
+	b.write(br"<%s>\n" % list2cmdline([y]))
