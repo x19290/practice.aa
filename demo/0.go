@@ -1,9 +1,9 @@
 package main
 
 import (
-	dos "github.com/x19290/go.dos"
+	"github.com/x19290/go.dos/cmdline"
 )
 
 func main() {
-	dos.Demo()
+	cmdline.Demo()
 }

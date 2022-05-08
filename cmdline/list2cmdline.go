@@ -1,10 +1,9 @@
-package dos
+package cmdline
 
 import (
 	"bytes"
-	"strings"
-
 	"github.com/google/shlex"
+	"strings"
 )
 
 func ShlexToCmdline(shline string) (dosline string) {

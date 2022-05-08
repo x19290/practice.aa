@@ -1,4 +1,4 @@
-package dos
+package cmdline
 
 import (
 	"fmt"
