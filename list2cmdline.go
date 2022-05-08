@@ -2,8 +2,9 @@ package dos
 
 import (
 	"bytes"
-	"github.com/google/shlex"
 	"strings"
+
+	"github.com/google/shlex"
 )
 
 func ShlexToCmdline(shline string) (dosline string) {
@@ -17,14 +18,14 @@ func ShlexToCmdline(shline string) (dosline string) {
 func ShlexToCmdlineEx(shline string) (dosline string, err error) {
 	list, err := shlex.Split(shline)
 	if err == nil {
-		dosline = List2Cmdline(list)
+		dosline = Cmdline(list...)
 	} else {
 		dosline = ""
 	}
 	return
 }
 
-func List2Cmdline(anystrs []string) string {
+func Cmdline(anystrs ...string) string {
 	b := new(bytes.Buffer)
 	for _, any := range anystrs {
 		b.WriteString(DosWord(any))
@@ -71,7 +72,7 @@ func DosWord(any string) string {
 			nbs = 0
 		}
 	}
-	repeatBs() // \\+ $ (if any)
+	repeatBs() // \\+ (?="? $ (if any)
 	if quote {
 		repeatBs() // \\+ before closing " must be doubled
 		b.WriteByte('"')
