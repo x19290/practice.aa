@@ -6,15 +6,15 @@ import (
 	"strings"
 )
 
-func ShlineToDos(shline string) (dosline string) {
-	dosline, err := ShlineToDosLine(shline)
+func ShlexToCmdline(shline string) (dosline string) {
+	dosline, err := ShlexToCmdlineEx(shline)
 	if err != nil {
 		panic(err)
 	}
 	return
 }
 
-func ShlineToDosLine(shline string) (dosline string, err error) {
+func ShlexToCmdlineEx(shline string) (dosline string, err error) {
 	list, err := shlex.Split(shline)
 	if err == nil {
 		dosline = List2Cmdline(list)
@@ -26,8 +26,8 @@ func ShlineToDosLine(shline string) (dosline string, err error) {
 
 func List2Cmdline(anystrs []string) string {
 	b := new(bytes.Buffer)
-	for _, word := range anystrs {
-		b.WriteString(Quote(word))
+	for _, any := range anystrs {
+		b.WriteString(DosWord(any))
 		b.WriteByte(' ')
 	}
 	if 1 <= len(anystrs) {
@@ -36,7 +36,7 @@ func List2Cmdline(anystrs []string) string {
 	return b.String()
 }
 
-func Quote(any string) (dosword string) {
+func DosWord(any string) string {
 	// This algorithm is stolen from python3...list2cmdline().
 	quote := func() bool {
 		switch {
@@ -48,7 +48,7 @@ func Quote(any string) (dosword string) {
 			return false
 		}
 	}()
-	b := new(bytes.Buffer) // dosword = b.String() at last.
+	b := new(bytes.Buffer) // return b.String() at last.
 	// nbs, repeatBs: bs=backslash
 	nbs := 0
 	repeatBs := func() {
@@ -76,6 +76,5 @@ func Quote(any string) (dosword string) {
 		repeatBs() // \\+ before closing " must be doubled
 		b.WriteByte('"')
 	}
-	dosword = b.String()
-	return
+	return b.String()
 }
