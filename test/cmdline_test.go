@@ -2,7 +2,7 @@ package test
 
 import (
 	"github.com/stretchr/testify/assert"
-	dos "github.com/x19290/practice.aa"
+	dos "github.com/x19290/go.dos"
 	"testing"
 )
 

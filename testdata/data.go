@@ -8,8 +8,8 @@ import (
 //go:embed *.txt
 var emb embed.FS
 
-func Stream() (ch chan string) {
-	ch = make(chan string)
+func LazyList() chan string {
+	ch := make(chan string) // returned
 	go func() {
 		bits, err := emb.ReadFile("data.txt")
 		if err != nil {
@@ -22,5 +22,5 @@ func Stream() (ch chan string) {
 		}
 		close(ch)
 	}()
-	return
+	return ch
 }

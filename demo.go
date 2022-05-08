@@ -2,7 +2,7 @@ package dos
 
 import (
 	"fmt"
-	"github.com/x19290/practice.aa/testdata"
+	"github.com/x19290/go.dos/testdata"
 	"io"
 	"os"
 	"os/exec"
@@ -10,9 +10,7 @@ import (
 )
 
 func Demo() {
-	// ch := make(chan *testdata.Test)
-	// go testdata.Stream(ch)
-	for test := range testdata.Stream() {
+	for test := range testdata.LazyList() {
 		DemoImpl(os.Stdout, test)
 	}
 }

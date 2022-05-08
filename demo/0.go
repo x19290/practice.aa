@@ -1,7 +1,7 @@
 package main
 
 import (
-	dos "github.com/x19290/practice.aa"
+	dos "github.com/x19290/go.dos"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-module github.com/x19290/practice.aa
+module github.com/x19290/go.dos
 
 go 1.18
 
