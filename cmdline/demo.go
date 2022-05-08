@@ -18,7 +18,7 @@ func Demo() {
 func DemoImpl(w io.Writer, test string) {
 	for _, feed := range strings.Split(test, "\n") {
 		fmt.Fprintf(w, "<%v>\n", feed)
-		fmt.Fprintln(w, DosWord(feed))
+		fmt.Fprintln(w, SafeWord(feed))
 	}
 }
 

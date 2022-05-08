@@ -6,28 +6,28 @@ import (
 	"strings"
 )
 
-func ShlexToCmdline(shline string) (dosline string) {
-	dosline, err := ShlexToCmdlineEx(shline)
+func FromShlex(shline string) (dosline string) {
+	dosline, err := FromShlexEx(shline)
 	if err != nil {
 		panic(err)
 	}
 	return
 }
 
-func ShlexToCmdlineEx(shline string) (dosline string, err error) {
+func FromShlexEx(shline string) (dosline string, err error) {
 	list, err := shlex.Split(shline)
 	if err == nil {
-		dosline = Cmdline(list...)
+		dosline = Make(list...)
 	} else {
 		dosline = ""
 	}
 	return
 }
 
-func Cmdline(anystrs ...string) string {
+func Make(anystrs ...string) string {
 	b := new(bytes.Buffer)
 	for _, any := range anystrs {
-		b.WriteString(DosWord(any))
+		b.WriteString(SafeWord(any))
 		b.WriteByte(' ')
 	}
 	if 1 <= len(anystrs) {
@@ -36,7 +36,7 @@ func Cmdline(anystrs ...string) string {
 	return b.String()
 }
 
-func DosWord(any string) string {
+func SafeWord(any string) string {
 	// This algorithm is stolen from python3...list2cmdline().
 	quote := func() bool {
 		switch {
@@ -71,9 +71,9 @@ func DosWord(any string) string {
 			nbs = 0
 		}
 	}
-	repeatBs() // \\+ (?="? $ (if any)
+	repeatBs() // remaining backslashes (if any)
 	if quote {
-		repeatBs() // \\+ before closing " must be doubled
+		repeatBs() // backslashes before closing " must be doubled
 		b.WriteByte('"')
 	}
 	return b.String()

@@ -7,9 +7,9 @@ import (
 )
 
 func Test1(t *testing.T) {
-	assert.Equal(t, "", cmdline.Cmdline())
-	assert.Equal(t, "α", cmdline.Cmdline("α"))
-	assert.Equal(t, "α β", cmdline.Cmdline("α", "β"))
-	assert.Equal(t, `"" " "`, cmdline.Cmdline("", " "))
-	assert.Equal(t, `a'`, cmdline.ShlexToCmdline(`"a"\'`))
+	assert.Equal(t, "", cmdline.Make())
+	assert.Equal(t, "α", cmdline.Make("α"))
+	assert.Equal(t, "α β", cmdline.Make("α", "β"))
+	assert.Equal(t, `"" " "`, cmdline.Make("", " "))
+	assert.Equal(t, `a'`, cmdline.FromShlex(`"a"\'`))
 }
