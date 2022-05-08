@@ -8,13 +8,8 @@ import (
 //go:embed *.txt
 var emb embed.FS
 
-type Test struct {
-	Feed     string
-	Expected string
-}
-
-func Stream() (ch chan *Test) {
-	ch = make(chan *Test)
+func Stream() (ch chan string) {
+	ch = make(chan string)
 	go func() {
 		bits, err := emb.ReadFile("data.txt")
 		if err != nil {
@@ -22,8 +17,8 @@ func Stream() (ch chan *Test) {
 		}
 		data := strings.TrimRight(string(bits), "\n")
 		split := strings.Split(data, "\n----\n")
-		for i := 0; i <= len(split)-3; i += 3 {
-			ch <- &Test{split[i+1], split[i+2]}
+		for i := 0; i <= len(split)-2; i += 2 {
+			ch <- split[i+1]
 		}
 		close(ch)
 	}()
