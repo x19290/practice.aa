@@ -2,7 +2,7 @@ package cmdline
 
 import (
 	"fmt"
-	"github.com/x19290/go.dos/testdata"
+	"github.com/x19290/go.dos/cmdline/testdata"
 	"io"
 	"os"
 	"os/exec"

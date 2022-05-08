@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"github.com/stretchr/testify/assert"
 	"github.com/x19290/go.dos/cmdline"
-	"github.com/x19290/go.dos/testdata"
+	"github.com/x19290/go.dos/cmdline/testdata"
 	"testing"
 )
 
